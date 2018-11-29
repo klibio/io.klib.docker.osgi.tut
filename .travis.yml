@@ -22,10 +22,18 @@ jobs:
     script:
      - cd quickstart
      - mvn verify
-  - stage: deploy docker.osgitutorial.img
+  - stage: deploy docker.osgitutorial.img for master branch
+    if: branch = master
     script:
-     - docker build -t klibio/io.klib.docker.osgi.tutorial:$date.$TRAVIS_BUILD_ID -t klibio/io.klib.docker.osgi.tutorial:latest --file ./Dockerfile-alpine.osgi.txt . 
+      - docker build -t klibio/io.klib.docker.osgi.tutorial:$date.$TRAVIS_BUILD_ID -t klibio/io.klib.docker.osgi.tutorial:latest --file ./Dockerfile-alpine.osgi.txt . 
+      - docker images ls -a
+      - docker login -u $DCKUSR -p $DCKPW
+      - docker push klibio/io.klib.docker.osgi.tutorial:$date.$TRAVIS_BUILD_ID
+     - docker push klibio/io.klib.docker.osgi.tutorial:latest
+  - stage: deploy docker.osgitutorial.img for develop branch
+    if: branch = develop
+    script:
+     - docker build -t klibio/io.klib.docker.osgi.tutorial.:develop --file ./Dockerfile-alpine.osgi.txt . 
      - docker images ls -a
      - docker login -u $DCKUSR -p $DCKPW
-     - docker push klibio/io.klib.docker.osgi.tutorial:$date.$TRAVIS_BUILD_ID
-     - docker push klibio/io.klib.docker.osgi.tutorial:latest
+     - docker push klibio/io.klib.docker.osgi.tutorial.:develop

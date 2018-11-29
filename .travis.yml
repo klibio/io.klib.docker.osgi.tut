@@ -1,0 +1,31 @@
+language: java
+
+services:
+ - docker
+
+jdk:
+  - openjdk8
+
+env:
+  global:
+    - date=$(date +%Y%m%d-%H%M%S)
+
+before_install:
+  - unset _JAVA_OPTIONS
+
+install:
+  - mvn --version
+
+jobs:
+ include:
+  - stage: build source
+    script:
+     - cd quickstart
+     - mvn verify
+  - stage: deploy docker.osgitutorial.img
+    script:
+     - docker build -t klibio/io.klib.docker.osgi.tutorial:$date.$TRAVIS_BUILD_ID -t klibio/io.klib.docker.osgi.tutorial:latest --file ./Dockerfile-alpine.osgi.txt . 
+     - docker images ls -a
+     - docker login -u $DCKUSR -p $DCKPW
+     - docker push klibio/io.klib.docker.osgi.tutorial:$date.$TRAVIS_BUILD_ID
+     - docker push klibio/io.klib.docker.osgi.tutorial:latest

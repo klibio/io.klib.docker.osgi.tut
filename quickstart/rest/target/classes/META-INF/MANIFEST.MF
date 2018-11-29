@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1543490502838
+Bundle-ManifestVersion: 2
+Bundle-Name: rest
+Bundle-SymbolicName: org.osgi.enroute.examples.quickstart.rest
+Bundle-Version: 0.0.2.201811291121
+Created-By: 1.8.0_131 (Oracle Corporation)
+Import-Package: javax.ws.rs
+Private-Package: org.osgi.enroute.examples.quickstart.rest,static.css,
+ static,static.main.html,static.main.img
+Provide-Capability: osgi.service;objectClass:List<String>="org.osgi.en
+ route.examples.quickstart.rest.Upper"
+Require-Capability: osgi.extender;filter:="(&(osgi.extender=osgi.compo
+ nent)(version>=1.4.0)(!(version>=2.0.0)))",osgi.implementation;filter
+ :="(&(osgi.implementation=osgi.http)(version>=1.1.0)(!(version>=2.0.0
+ )))",osgi.implementation;filter:="(&(osgi.implementation=osgi.jaxrs)(
+ version>=1.0.0)(!(version>=2.0.0)))",osgi.contract;osgi.contract=Java
+ JAXRS;filter:="(&(osgi.contract=JavaJAXRS)(version=2.1.0))",osgi.ee;f
+ ilter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Service-Component: OSGI-INF/org.osgi.enroute.examples.quickstart.rest.
+ Upper.xml
+Tool: Bnd-4.1.0.201810181252
+

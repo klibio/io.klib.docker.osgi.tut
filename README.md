@@ -1,4 +1,10 @@
-# io.klib.docker.osgi.tut
+# OSGi enroute quickstart example
+
+This is the [enroute quickstart tutorial](https://github.com/osgi/osgi.enroute) ...
+
+* Developed with bndtools in Eclipse,
+* Build with maven on TravisCI
+* Containerized to DockerHub
 
 [![Build Master](https://img.shields.io/badge/branch-master-brightgreen.svg)](): [![Build Status Master](https://api.travis-ci.org/klibio/io.klib.docker.osgi.tut.svg?branch=master)](https://travis-ci.org/klibio/io.klib.docker.osgi.tut)
 

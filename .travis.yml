@@ -36,7 +36,7 @@ jobs:
       - docker images ls -a
       - docker login -u $DCKUSR -p $DCKPW
       - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
-     - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
+      - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
   - stage: deploy docker.osgitutorial.img for develop branch
     if: branch = develop
     script:

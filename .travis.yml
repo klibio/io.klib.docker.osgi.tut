@@ -8,7 +8,15 @@ jdk:
 
 env:
   global:
+    - version=0.1.0
     - date=$(date +%Y%m%d-%H%M%S)
+    - dockerrepo=klibio/io.klib.docker.osgi.tutorial
+    - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
+    - dockerversion=${version}.${date}_${commit}
+
+cache:
+  directories:
+  - $HOME/.m2
 
 before_install:
   - unset _JAVA_OPTIONS
@@ -22,10 +30,18 @@ jobs:
     script:
      - cd quickstart
      - mvn verify
-  - stage: deploy docker.osgitutorial.img
+  - stage: deploy docker.osgitutorial.img for master branch
+    if: branch = master
     script:
-     - docker build -t klibio/io.klib.docker.osgi.tutorial:$date.$TRAVIS_BUILD_ID -t klibio/io.klib.docker.osgi.tutorial:latest --file ./Dockerfile-alpine.osgi.txt . 
+      - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest --file ./Dockerfile-alpine.osgi.txt . 
+      - docker images ls -a
+      - docker login -u $DCKUSR -p $DCKPW
+      - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
+      - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
+  - stage: deploy docker.osgitutorial.img for develop branch
+    if: branch = develop
+    script:
+     - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion --file ./Dockerfile-alpine.osgi.txt . 
      - docker images ls -a
      - docker login -u $DCKUSR -p $DCKPW
-     - docker push klibio/io.klib.docker.osgi.tutorial:$date.$TRAVIS_BUILD_ID
-     - docker push klibio/io.klib.docker.osgi.tutorial:latest
+     - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion

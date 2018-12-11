@@ -11,7 +11,8 @@ env:
     - version=0.1.0
     - date=$(date +%Y%m%d-%H%M%S)
     - dockerrepo=klibio/io.klib.docker.osgi.tutorial
-    - dockerversion=$version.$date_$TRAVIS_COMMIT
+    - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
+    - dockerversion=${version}.${date}_${commit}
 
 cache:
   directories:

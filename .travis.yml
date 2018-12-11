@@ -44,4 +44,4 @@ jobs:
      - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion --file ./Dockerfile-alpine.osgi.txt . 
      - docker images ls -a
      - docker login -u $DCKUSR -p $DCKPW
-     - docker push $dockerrepo:${TRAVIS_BRANCH}-$version-$date_$TRAVIS_COMMIT
+     - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion

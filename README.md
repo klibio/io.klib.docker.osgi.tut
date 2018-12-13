@@ -26,7 +26,8 @@ Now you can open a webbrowser on
 http://localhost:8888/quickstart/index.html
 
 # Digital Ocean Hosting
-Step-by-Step:
+
+## Step-by-Step:
 1. Create One-Click Droplet with Docker (preferred with SSH already deposited)
 2. Login either via root + password or via ssh key
 3. docker pull klibio/io.klib.docker.osgi.tutorial:master-latest

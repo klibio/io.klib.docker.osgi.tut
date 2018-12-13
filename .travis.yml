@@ -19,9 +19,6 @@ cache:
   - $HOME/.m2
 
 before_install:
-  - echo \# DEBUGGING INFO
-  - set
-  - echo \# DEBUGGING INFO
   - pwd
   - unset _JAVA_OPTIONS
 
@@ -34,7 +31,6 @@ jobs:
     script:
      - cd quickstart
      - mvn verify
-     - cd ..
   - stage: deploy docker.osgitutorial.img for master branch
     if: branch = master
     script:

@@ -42,4 +42,4 @@ Step-by-Step:
 
 ## How to connect
 
-1. Go to your internet browser and type [](68.183.72.62:8888/quickstart/index.html)
+[Hosted Container](http://68.183.72.62:8888/quickstart/index.html)

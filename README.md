@@ -43,4 +43,4 @@ http://localhost:8888/quickstart/index.html
 
 ## How to connect
 
-[Hosted Container](http://68.183.72.62:8888/quickstart/index.html)
+[Hosted Container on DigitalOcean](http://68.183.72.62:8888/quickstart/index.html)

@@ -42,6 +42,7 @@ jobs:
   - stage: deploy docker.osgitutorial.img for develop branch
     if: branch = develop
     script:
+     - cp ./Dockerfile-alpine.osgi.txt /home/travis/build/klibio/io.klib.docker.osgi.tut/quickstart/app/target/
      - cd /home/travis/build/klibio/io.klib.docker.osgi.tut/quickstart/
      - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion --file ./Dockerfile-alpine.osgi.txt . 
      - docker images ls -a

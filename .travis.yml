@@ -40,8 +40,7 @@ jobs:
   - stage: deploy docker.osgitutorial.img for develop branch
     if: branch = develop
     script:
-     - cd quickstart
-     - mvn verify
+     - mvn verify -f ./quickstart/
      - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion --file ./Dockerfile-alpine.osgi.txt . 
      - docker images ls -a
      - docker login -u $DCKUSR -p $DCKPW

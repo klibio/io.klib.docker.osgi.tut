@@ -1,6 +1,6 @@
 FROM openjdk:8-alpine
 
 RUN mkdir -p /usr/src/app
-COPY ~/quickstart/app/target/app.jar /usr/src/app
+COPY quickstart/app/target/app.jar /usr/src/app
 WORKDIR /usr/src/app
 CMD java -jar app.jar

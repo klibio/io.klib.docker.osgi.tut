@@ -27,13 +27,11 @@ install:
 
 jobs:
  include:
-  - stage: build source
-    script:
-     - cd quickstart
-     - mvn verify
   - stage: deploy docker.osgitutorial.img for master branch
     if: branch = master
     script:
+      - cd quickstart
+      - mvn verify
       - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest --file ./Dockerfile-alpine.osgi.txt . 
       - docker images ls -a
       - docker login -u $DCKUSR -p $DCKPW
@@ -42,7 +40,8 @@ jobs:
   - stage: deploy docker.osgitutorial.img for develop branch
     if: branch = develop
     script:
-     - cd /home/travis/build/klibio/io.klib.docker.osgi.tut/
+     - cd quickstart
+     - mvn verify
      - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion --file ./Dockerfile-alpine.osgi.txt . 
      - docker images ls -a
      - docker login -u $DCKUSR -p $DCKPW

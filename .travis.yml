@@ -45,5 +45,5 @@ jobs:
      - docker images ls -a
      - docker login -u $DCKUSR -p $DCKPW
      - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
-     - curl --unix-socket /var/run/docker.sock \
+     - curl /var/run/docker.sock \
         -X POST "http://68.183.72.62:5555/images/create?fromImage=openjdk:8-alpine"

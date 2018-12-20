@@ -18,31 +18,19 @@ cache:
   directories:
   - $HOME/.m2
 
-before_install:
-  - pwd
+before_script:
   - unset _JAVA_OPTIONS
 
-install:
-  - mvn --version
+script: 
+#javabuild
+  - mvn verify -f ./quickstart/
+  - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest --file ./Dockerfile-alpine.osgi.txt . 
+#dockerpush
+  - docker login -u $DCKUSR -p $DCKPW
+  - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
+  - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
+deploy:
+#digitaloceandeploy
+  - ./update.sh
 
-jobs:
- include:
-  - stage: deploy docker.osgitutorial.img for master branch
-    if: branch = master
-    script:
-      - cd quickstart
-      - mvn verify
-      - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest --file ./Dockerfile-alpine.osgi.txt . 
-      - docker images ls -a
-      - docker login -u $DCKUSR -p $DCKPW
-      - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
-      - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
-  - stage: deploy docker.osgitutorial.img for develop branch
-    if: branch = develop
-    script:
-     - mvn verify -f ./quickstart/
-     - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion --file ./Dockerfile-alpine.osgi.txt . 
-     - docker images ls -a
-     - docker login -u $DCKUSR -p $DCKPW
-     - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
-     - ./update.sh
+ 

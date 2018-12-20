@@ -29,7 +29,6 @@ script:
   - docker login -u $DCKUSR -p $DCKPW
   - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
   - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
-deploy:
 #digitaloceandeploy
   - ./update.sh
 

@@ -13,7 +13,7 @@ env:
     - dockerrepo=klibio/io.klib.docker.osgi.tutorial
     - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
     - dockerversion=${version}.${date}_${commit}
-
+    
 cache:
   directories:
   - $HOME/.m2
@@ -32,4 +32,3 @@ script:
 #digitaloceandeploy
   - ./update.sh
 
- 

@@ -1,11 +1,2 @@
 #!/bin/bash
-curl /var/run/docker.sock \
- -X POST "http://68.183.72.62:5555/containers/test/stop" \
- -X POST "http://68.183.72.62:5555/containers/prune" \
- -X POST "http://68.183.72.62:5555/images/create?fromImage=klibio/io.klib.docker.osgi.tutorial:master-latest" \
- -H "Content-Type: application/json" \
- --data @- <<END;
- {
-     "Image": "klibio/io.klib.docker.osgi.tutorial:master-latest"
-     } END \
- -X POST "http://68.183.72.62:5555/containers/create"
+curl /var/run/docker.sock -X POST "http://68.183.72.62:5555/containers/test/stop" && curl /var/run/docker.sock -X POST "http://68.183.72.62:5555/containers/prune" && curl /var/run/docker.sock -X POST "http://68.183.72.62:5555/images/create?fromImage=klibio/io.klib.docker.osgi.tutorial:master-latest" && curl /var/run/docker.sock -H "Content-Type: application/json" --data '{"Cmd": ["/bin/sh","-c","java -jar app.jar"],"Image": "klibio/io.klib.docker.osgi.tutorial:master-latest", "Name": "test","WorkingDir": "/usr/src/app","ExposedPorts": {"22/tcp": {},"8080/tcp": {}},"HostConfig": {"PortBindings": {"8080/tcp": [{"HostIp": "0.0.0.0", "HostPort": "8888"}]}}}' -X POST "http://68.183.72.62:5555/containers/create?name=test" && curl /var/run/docker.sock -X POST "http://68.183.72.62:5555/containers/test/start"

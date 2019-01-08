@@ -3,15 +3,14 @@ language: generic
 services:
  - docker
 
-before_install:
-  - sudo apt-get install sshpass
-
 jdk:
   - openjdk8
 
 addons:
-  ssh_known_hosts: 68.183.72.62
-
+  - ssh_known_hosts: 68.183.72.62
+  - apt:
+    - packages:
+      - sshpass
 env:
   global:
     - version=0.1.0

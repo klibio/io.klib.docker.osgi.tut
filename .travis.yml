@@ -3,7 +3,7 @@ language: generic
 services:
  - docker
 
-before_isntall:
+before_install:
   - sudo apt-get install sshpass
 
 jdk:
@@ -36,7 +36,7 @@ script:
   - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
   - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 #digitaloceandeploy
-  - sshpass -p $(SSHPH) ssh root@$(IP)
+  - sshpass -p ${SSHPH} ssh root@${IP
   - docker stop $(docker ps -a -q)
   - docker rm $(docker ps -a -q)
   - docker pull $dockerrepo:${TRAVIS_BRANCH}-latest

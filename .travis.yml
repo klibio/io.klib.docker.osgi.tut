@@ -6,6 +6,12 @@ services:
 jdk:
   - openjdk8
 
+addons:
+  ssh_known_hosts: 68.183.72.62
+  apt:
+    packages:
+      - sshpass
+
 env:
   global:
     - version=0.1.0
@@ -13,7 +19,7 @@ env:
     - dockerrepo=klibio/io.klib.docker.osgi.tutorial
     - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
     - dockerversion=${version}.${date}_${commit}
-
+    
 cache:
   directories:
   - $HOME/.m2
@@ -30,6 +36,10 @@ script:
   - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
   - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 #digitaloceandeploy
-  - ./update.sh
+  - sshpass -p $(SSHPH) ssh root@$(IP)
+  - docker stop $(docker ps -a -q)
+  - docker rm $(docker ps -a -q)
+  - docker pull $dockerrepo:${TRAVIS_BRANCH}-latest
+  - docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest
+  - exit
 
- 

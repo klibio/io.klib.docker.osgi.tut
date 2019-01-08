@@ -37,6 +37,7 @@ script:
   - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
   - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 #digitaloceandeploy
+  - ssh-keyscan -t rsa 68.183.72.62 >> .ssh/known_hosts
   - sshpass -p ${SSHPH} ssh root@${IP}
   - docker stop $(docker ps -a -q)
   - docker rm $(docker ps -a -q)

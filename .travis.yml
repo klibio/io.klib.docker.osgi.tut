@@ -35,10 +35,5 @@ script:
   - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 #digitaloceandeploy
   - ssh-keyscan -t rsa 68.183.72.62 >> $HOME/.ssh/known_hosts
-  - sshpass -p ${SSHPH} ssh root@${IP}
-  - docker stop $(docker ps -a -q)
-  - docker rm $(docker ps -a -q)
-  - docker pull $dockerrepo:${TRAVIS_BRANCH}-latest
-  - docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest
-  - exit
+  - sshpass -p ${SSHPH} ssh root@${IP} "docker stop $(docker ps -a -q); docker rm $(docker ps -a -q); docker pull $dockerrepo:${TRAVIS_BRANCH}-latest; docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest; exit"
 

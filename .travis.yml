@@ -1,39 +1,32 @@
 language: generic
-
 services:
- - docker
-
+- docker
 jdk:
-  - openjdk8
-
+- openjdk8
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y sshpass
-
+- openssl aes-256-cbc -K $encrypted_d2e0cec711be_key -iv $encrypted_d2e0cec711be_iv
+  -in travis_rsa.enc -out /tmp/travis_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/travis_rsa
+- ssh-add /tmp/travis_rsa
 env:
   global:
-    - version=0.1.0
-    - date=$(date +%Y%m%d-%H%M%S)
-    - dockerrepo=klibio/io.klib.docker.osgi.tutorial
-    - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
-    - dockerversion=${version}.${date}_${commit}
-    
+  - version=0.1.0
+  - date=$(date +%Y%m%d-%H%M%S)
+  - dockerrepo=klibio/io.klib.docker.osgi.tutorial
+  - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
+  - dockerversion=${version}.${date}_${commit}
 cache:
   directories:
-  - $HOME/.m2
-
+  - "$HOME/.m2"
 before_script:
-  - unset _JAVA_OPTIONS
-
-script: 
-#javabuild
-  - mvn verify -f ./quickstart/
-  - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest --file ./Dockerfile-alpine.osgi.txt . 
-#dockerpush
-  - docker login -u $DCKUSR -p $DCKPW
-  - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
-  - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
-#digitaloceandeploy
-  - ssh-keyscan -t rsa 68.183.72.62 >> $HOME/.ssh/known_hosts
-  - sshpass -p ${SSHPH} ssh root@${IP} 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest && exit'
-
+- unset _JAVA_OPTIONS
+script:
+- mvn verify -f ./quickstart/
+- docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest
+  --file ./Dockerfile-alpine.osgi.txt .
+- docker login -u $DCKUSR -p $DCKPW
+- docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
+- docker push $dockerrepo:${TRAVIS_BRANCH}-latest
+- ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
+- ssh root@${IP} 'docker rm -f $(docker -a -q) && docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest'

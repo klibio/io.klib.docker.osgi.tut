@@ -5,8 +5,6 @@ jdk:
 - openjdk8
 before_install:
 - openssl aes-256-cbc -K $encrypted_9112fb2807d4_key -iv $encrypted_9112fb2807d4_iv
-  -in travis_rsa.enc -out travis_rsa -d
-- openssl aes-256-cbc -K $encrypted_d2e0cec711be_key -iv $encrypted_d2e0cec711be_iv
   -in travis_rsa.enc -out /tmp/travis_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/travis_rsa
@@ -31,5 +29,4 @@ script:
 - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
 - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 - ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
-- ssh root@${IP} 'docker rm -f $(docker -a -q) && docker pull $dockerrepo:${TRAVIS_BRANCH}-latest
-  && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest'
+- ssh root@${IP} 'docker rm -f $(docker -a -q) && docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest'

@@ -29,4 +29,4 @@ script:
 - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
 - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 - ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
-- ssh root@${IP} 'docker rm -f $(docker -a -q) && docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest'
+- ssh root@${IP} 'docker rm -f $(docker ps -a -q) && docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest'

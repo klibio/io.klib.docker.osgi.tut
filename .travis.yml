@@ -35,5 +35,5 @@ script:
 #add droplet to known hosts and update container ran on droplet when pushed to master
 - ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
 #- echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP};
-- if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p --name=develop 8889:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}; fi
+- if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}; fi
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}; fi

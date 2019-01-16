@@ -34,10 +34,10 @@ script:
 - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 #add droplet to known hosts and update container ran on droplet when pushed to master
 - ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
-- |  if ["${TRAVIS_BRANCH}" == "master"]; then
-      echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}
-    fi
+- 'if ["${TRAVIS_BRANCH}" == "master"]; then
+    echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP};
+  fi'
 # commented out in case of not wanted - still useful
-- |  if ["${TRAVIS_BRANCH}" == "develop"]; then
-      echo "docker rm -f ${containernames}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 --name develop $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}
-    fi
+-  'if ["${TRAVIS_BRANCH}" == "develop"]; then
+      echo "docker rm -f ${containernames}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 --name develop $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP};
+    fi'

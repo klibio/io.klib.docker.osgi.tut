@@ -16,7 +16,7 @@ env:
   - dockerrepo=klibio/io.klib.docker.osgi.tutorial
   - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
   - dockerversion=${version}.${date}_${commit}
-  - containerids=$(docker ps -a --filter ancestor=$dockerrepo:${TRAVIS_BRANCH}-latest -q)
+  - containerids=$(docker ps -a -q --filter ancestor=$dockerrepo:${TRAVIS_BRANCH}-latest)
 cache:
   directories:
   - "$HOME/.m2"
@@ -33,6 +33,7 @@ script:
 - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 #add droplet to known hosts and update container ran on droplet when pushed to master
 - ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
+- echo $containerids
 - echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}
 #- echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP};
 #- if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}; fi

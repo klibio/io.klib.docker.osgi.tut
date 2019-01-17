@@ -17,22 +17,26 @@ env:
   - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
   - dockerversion=${version}.${date}_${commit}
   - containerids=$(docker ps -a -q) # --filter ancestor=klibio/io.klib.docker.osgi.tutorial:develop-latest --- needs to be looked at
-cache:
+  - branding="<a href="https://github.com/klibio/io.klib.docker.osgi.tut"> Kirschners GmbH - $dockerversion </a>"
+
+  cache:
   directories:
   - "$HOME/.m2"
 before_script:
 - unset _JAVA_OPTIONS
 script:
-#build quickstart applet and docker image
+# add timestamp to html
+- sed -e "s/OSGi Alliance 2017/OSGi Alliance 2017 and ${branding}/" ./quickstart/rest/src/main/resources/static/index.html
+# build quickstart applet and docker image
 - mvn verify -f ./quickstart/
 - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest
   --file ./Dockerfile-alpine.osgi.txt .
-#push docker image
+# push docker image
 - docker login -u $DCKUSR -p $DCKPW
 - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
 - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
-#add droplet to known hosts and update container ran on droplet when pushed to master
+# add droplet to known hosts and update container ran on droplet when pushed to master
 - ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
-#- echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}
-#- if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}; fi
+# - echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}
+# - if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8889:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}; fi
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo "docker rm -f ${containerids}; docker pull $dockerrepo:${TRAVIS_BRANCH}-latest && docker container run -d -p 8888:8080 $dockerrepo:${TRAVIS_BRANCH}-latest" | ssh root@${IP}; fi

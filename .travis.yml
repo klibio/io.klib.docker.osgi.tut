@@ -36,4 +36,4 @@ script:
 - docker push $dockerrepo:${TRAVIS_BRANCH}-latest
 # add droplet to known hosts and update container ran on droplet when pushed to master
 - ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
-- if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "sh updatedevelop" | ssh root@${IP}; else echo "sh updatemaster" | ssh root@${IP}; fi
+- if [ "$TRAVIS_BRANCH" = "master" ]; then echo "sh updatemaster" && exit | ssh root@${IP}; else echo "sh updatedevelop" && exit | ssh root@${IP}; fi

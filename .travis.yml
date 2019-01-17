@@ -16,7 +16,7 @@ env:
   - dockerrepo=klibio/io.klib.docker.osgi.tutorial
   - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
   - dockerversion=${version}.${date}_${commit}
-  - branding="<a href='https://github.com/klibio/io.klib.docker.osgi.tut'> Kirschners GmbH - $dockerversion </a>"
+  - branding="<a href='https:\/\/github.com\/klibio\/io.klib.docker.osgi.tut'> Kirschners GmbH - $dockerversion <\/a>"
 
   cache:
   directories:

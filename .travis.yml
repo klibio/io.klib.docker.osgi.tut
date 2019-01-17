@@ -25,7 +25,7 @@ before_script:
 - unset _JAVA_OPTIONS
 script:
 # add timestamp to html
-- sed -e "s/OSGi Alliance 2017/OSGi Alliance 2017 and ${branding}/" ./quickstart/rest/src/main/resources/static/index.html
+- sed -i "s/OSGi Alliance 2017/OSGi Alliance 2017 and ${branding}/" ./quickstart/rest/src/main/resources/static/index.html
 # build quickstart applet and docker image
 - mvn verify -f ./quickstart/
 - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest

@@ -16,7 +16,7 @@ env:
   - dockerrepo=klibio/io.klib.docker.osgi.tutorial
   - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
   - dockerversion=${version}.${date}_${commit}
-#  - containerids=$(docker ps -a -q --filter ancestor=$imgrepo:${travisbranch}-latest)
+  - containerids=$(docker ps -a -q --filter ancestor=$imgrepo:${travisbranch}-latest)
 #  - containerids=$(docker ps -a -q)
 cache:
   directories:

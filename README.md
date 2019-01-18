@@ -18,6 +18,15 @@ This is the [enroute quickstart tutorial](https://github.com/osgi/osgi.enroute) 
 
 # How to consume
 
+
+````
+docker pull klibio/io.klib.docker.osgi.tutorial
+docker container run -p 8888:8080 klibio/io.klib.docker.osgi.tutorial
+````
+Now you can open a webbrowser on 
+http://localhost:8888/quickstart/index.html
+=======
+
 ````
 docker pull klibio/io.klib.docker.osgi.tutorial
 docker container run -p 8888:8080 klibio/io.klib.docker.osgi.tutorial
@@ -44,3 +53,4 @@ http://localhost:8888/quickstart/index.html
 ## How to connect
 
 [Hosted Container on DigitalOcean](http://68.183.72.62:8888/quickstart/index.html)
+

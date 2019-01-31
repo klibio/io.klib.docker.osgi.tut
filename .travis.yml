@@ -26,11 +26,8 @@ env:
 before_script:
 - unset _JAVA_OPTIONS
 #install azure cli
-- sudo apt-get install apt-transport-https lsb-release software-properties-common dirmngr -y
-- sudo apt-key --keyring /etc/apt/trusted.gpg.d/Microsoft.gpg adv --keyserver packages.microsoft.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF
-- echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
-- sudo apt-get update -qq
-- sudo apt-get install azure-cli
+- sh install_azure.sh
+
 
 script:
 # add branding to the html page
@@ -49,5 +46,5 @@ script:
 - if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "sh updatedevelop" | ssh root@${IP}; fi
 - if [ "$TRAVIS_BRANCH" = "master" ]; then echo "sh updatemaster" | ssh root@${IP}; fi
 #update container instance hosted via azure
-- az login -u ${AZ_ID} -p ${AZ_PW}
+- az login --service-principal -u ${azure_appID} -p ${azure_password} --tenant ${azure_tenant}
 - az container create --resource-group klibio --name develop --image klibio/io.klib.docker.osgi.tutorial:develop-latest --dns-name-label develop --ports 8080

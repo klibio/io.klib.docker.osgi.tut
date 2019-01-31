@@ -1,0 +1,2 @@
+#!/bin/bash
+docker rm -f $(docker ps -aq --filter ancestor=klibio/io.klib.docker.osgi.tutorial:master-latest); docker pull klibio/io.klib.docker.osgi.tutorial:master-latest && docker container run -d -p 8888:8080 klibio/io.klib.docker.osgi.tutorial:master-latest

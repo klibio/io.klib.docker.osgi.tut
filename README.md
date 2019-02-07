@@ -78,7 +78,7 @@ Be careful, as azure container instances do NOT support port mapping. This featu
 5. now you can connect to either "<dns_name>:8080/quickstart/index.html" or "<ip_adress>:8080/quickstart/index.html"
 
 Example:
-[OSGI Tutorial](develop.westeurope.azurecontainer.io:8080/quickstart/index.html)
+[OSGI Tutorial](http://develop.westeurope.azurecontainer.io:8080/quickstart/index.html)
 
 To update die container we first delete it and then redeploy it:
 

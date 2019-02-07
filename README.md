@@ -76,3 +76,12 @@ az container create \
 Be careful, as azure container instances do NOT support port mapping. This feature will be implemented, but has not been yet. If you need this feature, a Ubuntu Server will be more usable. The dns contains the name label you desire as suffix. The prefix is determined by the location where you host the container instance on azure (f.e. <name_labe>.westeurope.azurecontainer.io)
 4. Wait for the container instance to be published. It will recieve an automatically associated ip and a dns adress. The DNS adress depends on the region in which the instance has been hosted and is unique.
 5. now you can connect to either "<dns_name>:8080/quickstart/index.html" or "<ip_adress>:8080/quickstart/index.html"
+
+Example:
+[OSGI Tutorial](develop.westeurope.azurecontainer.io:8080/quickstart/index.html)
+
+To update die container we first delete it and then redeploy it:
+
+````
+az container delete --resource-group klibio --name develop --yes && az container create --resource-group klibio --name develop --image klibio/io.klib.docker.osgi.tutorial:develop-latest --dns-name-label develop --ports 8080
+````

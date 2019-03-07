@@ -1,0 +1,59 @@
+tasks:
+connect to pod/container shell/bash
+load balancer
+grep NodePort/NodeIP
+curl health check
+yml auslesen pod
+
+>> shell script
+
+>> yml
+
+
+
+sources:
+
+kubernetes tut:
+https://kubernetes.io/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/
+
+google docu kubernetes:
+https://docs.google.com/presentation/d/13klSkUQI9yPxKckP8UFLpzzKzxYwv1lit9ELWOnXJFM/edit#slide=id.g141c2882ff_7_395
+
+
+expose:
+https://stackoverflow.com/questions/52522570/how-to-expose-a-kubernetes-service-on-a-specific-nodeport
+
+openshift vs kubernetes:
+https://cloudowski.com/articles/10-differences-between-openshift-and-kubernetes/
+
+pod termination gravefully
+https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-terminating-with-grace
+
+kubectl cheatsheet
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+Szenario:
+
+- inital setup with N pods - check
+- health check with curl
+- update container image
+- health check with curl - new version
+- gracefull cluster shutdown (minikube stop?) - SIGTERM message handled by app
+
+Generell:
+
+- von container auf shared filesystem nfs/smb (stichwort volumes)
+- kubernetes glossary / cloud glossary
+
+-viel Kerne viel Cache - FileIO am schnellsten <= 3k€ FHD 15", Thunderbolt 3 + Dock (evtl Sunny Cove)
+
+
+bind mounts vs volumes
+
+1) volumes persistent store for containers
+docker container run -d -p 8889:8080 -v "$(pwd)"/target:/app klibio/io.klib.docker.osgi.tutorial:develop-latest
+
+2) bind mount
+docker container run -d -p 8889:8080 --mount type=bind,source="$(pwd)"/target,target=/app klibio/io.klib.docker.osgi.tutorial:develop-latest
+
+

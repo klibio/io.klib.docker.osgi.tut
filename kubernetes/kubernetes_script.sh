@@ -22,5 +22,5 @@ kubectl scale --replicas=5 rc/osgi-rc
 echo "#performing a rolling update to the master push"
 kubectl rolling-update osgi-rc --image=klibio/io.klib.docker.osgi.tutorial:master-latest
 echo "#curl new version"
-version=$(curl $ip:$port$path | grep -oP '(?<=master).*?(?=</a>)')
+version=$(curl $ip:$port$path) #| grep -oP '(?<=master).*?(?=</a>)')
 echo $version

@@ -2,13 +2,15 @@
 1.1. clean ubuntu container, mount source-dir from host and launch java compiler build inside container, launch app from target-dir
 
 - mount two dir from host, source(ENGINE_LIB_DIR | readonly) and target(R/W)
-
+- docker container run -it -d -v <forward slashed unc local path>:<absolute target path>:ro -v <another host path>:<another target path> --name <containername> <desired_ubuntu_image>
 
 2.1 docker container with git server
 2.2 run container
 2.3 create osgi tutorial repo inside git-container
 
 ---> Where's the storage? (volume)
+look https://stackoverflow.com/questions/45271420/docker-where-is-docker-volume-located-for-this-compose-file
+
 
 2.4 Git Hooks? (Hooks=callbacks that inform about actions done to a repo)
 2.5 Hook at checkin --> new container with build (bind mount look at point 6.)

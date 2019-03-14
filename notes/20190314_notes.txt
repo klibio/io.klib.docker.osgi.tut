@@ -1,0 +1,17 @@
+Find workable ubuntu/linux image as small as possible
+
+script vollautomatisch
+
+1. start container with mount of ENGINE_LIB_DIR and project folder
+2. export java + maven
+3. starte mvn verify to project folder
+
+container bootstrap with path vars exported (java + mvn)
+
+docker exec workbench <cmd>
+
+2.1 docker container with git server
+2.2 run container
+2.3 create osgi tutorial repo inside git-container
+2.4 Git Hooks? (Hooks=callbacks that inform about actions done to a repo)
+2.5 Hook at checkin --> new container with build (bind mount look at point 6.)

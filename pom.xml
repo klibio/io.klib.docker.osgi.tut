@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
     xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -78,15 +78,27 @@
     <modules>
         <module>quickstart</module>
         <module>microservice</module>
-    </modules>
+    <module>gogo</module>
+  </modules>
 
     <repositories>
         <repository>
             <id>OSGi</id>
             <name>OSGi public binaries</name>
-            <url>https://oss.sonatype.org/content/groups/osgi</url>
+            <url>https://oss.sonatype.org/content/repositories/osgi-releases/</url>
             <releases>
                 <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>OSGi Snapshots</id>
+            <name>OSGi public snapshot binaries</name>
+            <url>https://oss.sonatype.org/content/repositories/osgi-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
@@ -108,7 +120,7 @@
         <pluginRepository>
             <id>Bnd Snapshots</id>
             <name>Bnd Latest build</name>
-            <url>https://bndtools.ci.cloudbees.com/job/bnd.master/lastSuccessfulBuild/artifact/dist/bundles/</url>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
             <releases>
                 <enabled>false</enabled>
             </releases>

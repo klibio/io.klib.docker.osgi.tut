@@ -3,7 +3,14 @@ Find workable ubuntu/linux image as small as possible
 script vollautomatisch
 
 1. start container with mount of ENGINE_LIB_DIR and project folder
+
+docker container run -it -d -v //C/Git/ENGINE_LIB_DIR:/ENGINE_LIB_DIR:ro -v //C/Git/io.klib.docker.osgi.tut/:/io.klib.docker.osgi.tut --name ibuntu ubuntu
+
 2. export java + maven
+
+docker exec not working -> OCI Runtime Error
+Script not working -> permission denied
+
 3. starte mvn verify to project folder
 
 container bootstrap with path vars exported (java + mvn)

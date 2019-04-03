@@ -4,7 +4,15 @@ script vollautomatisch
 
 1. start container with mount of ENGINE_LIB_DIR and project folder
 
-docker container run -it -d -v //C/Git/ENGINE_LIB_DIR:/ENGINE_LIB_DIR:ro -v //C/Git/io.klib.docker.osgi.tut/:/io.klib.docker.osgi.tut --name ibuntu ubuntu
+docker container run \
+-it \
+-v c:/Git/ENGINE_LIB_DIR:/ENGINE_LIB_DIR:ro \
+-v c:/Git/io.klib.docker.osgi.tut/:/io.klib.docker.osgi.tut \
+-e "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/ENGINE_LIB_DIR/jdk/bin:/ENGINE_LIB_DIR/Maven/bin" \
+-e "JAVA_HOME=/ENGINE_LIB_DIR/jdk/" \
+--name ibuntu \
+ubuntu \
+sh -c "cd io.klib.docker.osgi.tut && mvn verify"
 
 2. export java + maven
 
@@ -14,8 +22,6 @@ Script not working -> permission denied
 3. starte mvn verify to project folder
 
 container bootstrap with path vars exported (java + mvn)
-
-docker exec workbench <cmd>
 
 2.1 docker container with git server
 2.2 run container

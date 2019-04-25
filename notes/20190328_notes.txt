@@ -31,4 +31,28 @@ docker push localhost:5000/myfirstimage
 basically gleich wie Docker Hub, wo mit <username/organization>/<image> auf ein user repo gepusht wird.
 <username> wird nur durch adresse der docker registry ersetzt.
 
+for detailed deployment:
+
+https://docs.docker.com/registry/deploying/
+
+Und wie konfiguriert man das lokale Docker dann gegen diese Registry?
+Man muss das Docker local einstellen oder ein daemon.json zur verfügung stellen,
+wo man unter "unsecure registries": [localhost:5000] z.B. einträgt
+
+
+Wie pushed/pulled man dann auf die lokale Registry?
+Mit den normalen befehlen nur anstatt der username kommt die Adresse der registry, also:
+
+Statt
+klibio/io.klib.substitute:jdk-8
+
+macht man
+localhost:5000/io.klib.substitute:jdk-8
+
+wobei das Image davor entsprechend getaggt werden muss
+
+
+Kann man das lokal runterladen und auf der Insel dann ausführen?
+Das registry Image ist ein docker Image wie jedes andere, also sollte möglich sein
+
 lukas docker zeigen (fix build tools project)

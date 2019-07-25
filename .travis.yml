@@ -43,8 +43,8 @@ script:
 # add droplet to known hosts and update container ran on droplet when pushed to master
 - ssh-keyscan -t rsa ${IP} >> $HOME/.ssh/known_hosts
 #- ssh-keyscan -t rsa ${IP_AZURE} >> $HOME/.ssh/known_hosts
-- if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "sh updatedevelop" | ssh root@${IP}; fi
-- if [ "$TRAVIS_BRANCH" = "master" ]; then echo "sh updatemaster" | ssh root@${IP}; fi
+- if [ "$TRAVIS_BRANCH" = "develop" ]; then echo "sh updatedevelop" | ssh -tt root@${IP}; fi
+- if [ "$TRAVIS_BRANCH" = "master" ]; then echo "sh updatemaster" | ssh -tt root@${IP}; fi
 #update container instance hosted via azure
 #- az login --service-principal -u ${azure_appID} -p ${azure_password} --tenant ${azure_tenant}
 #- az container delete --resource-group klibio --name develop --yes && az container create --resource-group klibio --name develop --image klibio/io.klib.docker.osgi.tutorial:develop-latest --dns-name-label develop --ports 8080

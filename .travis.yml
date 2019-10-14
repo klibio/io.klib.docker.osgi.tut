@@ -36,6 +36,7 @@ script:
 # build quickstart applet and docker image
 - mvn verify -f ./quickstart/
 - docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest --file ./Dockerfile-alpine.osgi.txt .
+- docker build -t $dockerrepo:arm32v7-latest --file ./Dockerfile-arm32v7.txt .
 # push docker image
 - docker login -u $DCKUSR -p $DCKPW
 - docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
